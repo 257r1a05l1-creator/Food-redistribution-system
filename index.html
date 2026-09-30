@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodBridge | Food Redistribution System</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand"><span class="logo">🍲</span> FoodBridge</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#donate">Donate</a>
+      <a href="#available">Available Food</a>
+      <a href="#how">How It Works</a>
+      <a href="#dashboard">Dashboard</a>
+    </nav>
+    <button class="btn btn-small" onclick="openModal('loginModal')">Login</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <div class="badge">♻️ Reduce Waste • Feed Communities</div>
+        <h1>Turn Surplus Food Into <span>Hope.</span></h1>
+        <p>Connect restaurants, events and individuals with NGOs and volunteers to safely redistribute surplus food before it goes to waste.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#donate">Donate Food</a>
+          <a class="btn btn-outline" href="#available">Find Food</a>
+        </div>
+        <div class="stats">
+          <div><strong id="mealsSaved">12,480</strong><small>Meals rescued</small></div>
+          <div><strong>3.8T</strong><small>Food redistributed</small></div>
+          <div><strong>86</strong><small>Partner NGOs</small></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="map-card">
+          <div class="map-grid"></div>
+          <div class="pin pin1">📍</div><div class="pin pin2">📍</div><div class="pin pin3">📍</div>
+          <div class="map-label">Live donation network</div>
+        </div>
+        <div class="mini-card">
+          <span>🥘 Fresh meals</span><b>120 servings</b><small>2.1 km away</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="section-title">
+        <span class="eyebrow">SIMPLE PROCESS</span>
+        <h2>From surplus to service</h2>
+        <p>A simple workflow for donors, NGOs and volunteers.</p>
+      </div>
+      <div class="steps">
+        <article><div class="step-icon">1</div><h3>Donate</h3><p>Donors list surplus food with quantity, pickup time and expiry details.</p></article>
+        <article><div class="step-icon">2</div><h3>Match</h3><p>Nearby NGOs discover available food and claim donations that fit their needs.</p></article>
+        <article><div class="step-icon">3</div><h3>Pickup</h3><p>Volunteers coordinate collection and delivery to the receiving organization.</p></article>
+        <article><div class="step-icon">4</div><h3>Impact</h3><p>Every completed delivery updates meals rescued and food-waste impact.</p></article>
+      </div>
+    </section>
+
+    <section class="section alt" id="available">
+      <div class="section-title row-title">
+        <div><span class="eyebrow">LIVE LISTINGS</span><h2>Available food donations</h2></div>
+        <select id="filter" onchange="filterFood()"><option value="all">All types</option><option value="meals">Meals</option><option value="bakery">Bakery</option><option value="produce">Produce</option></select>
+      </div>
+      <div id="foodGrid" class="food-grid"></div>
+    </section>
+
+    <section class="section" id="donate">
+      <div class="donate-wrap">
+        <div>
+          <span class="eyebrow">DONOR PORTAL</span>
+          <h2>Have surplus food?</h2>
+          <p>Share it with a verified organization instead of sending it to landfill.</p>
+          <ul class="check-list">
+            <li>✓ Add food and quantity</li><li>✓ Set pickup and expiry time</li><li>✓ Track claim and delivery status</li><li>✓ View your social impact</li>
+          </ul>
+        </div>
+        <form id="donationForm" class="form-card" onsubmit="submitDonation(event)">
+          <h3>List a donation</h3>
+          <label>Food name<input id="foodName" required placeholder="e.g. Vegetable Biryani"></label>
+          <div class="two-col">
+            <label>Quantity<input id="quantity" required placeholder="e.g. 50 plates"></label>
+            <label>Food type<select id="foodType"><option>Meals</option><option>Bakery</option><option>Produce</option></select></label>
+          </div>
+          <div class="two-col">
+            <label>Pickup time<input type="datetime-local" id="pickup" required></label>
+            <label>Expiry time<input type="datetime-local" id="expiry" required></label>
+          </div>
+          <label>Pickup location<input id="location" required placeholder="Enter address"></label>
+          <button class="btn full" type="submit">Publish Donation</button>
+          <p id="formMessage" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section alt" id="dashboard">
+      <div class="section-title"><span class="eyebrow">IMPACT DASHBOARD</span><h2>Community impact</h2></div>
+      <div class="dashboard-grid">
+        <div class="metric"><span>🍽️</span><strong id="dashMeals">12,480</strong><small>Meals rescued</small></div>
+        <div class="metric"><span>🥕</span><strong>3,800 kg</strong><small>Food redistributed</small></div>
+        <div class="metric"><span>🌱</span><strong>7.2T</strong><small>Estimated CO₂ avoided</small></div>
+        <div class="metric"><span>🤝</span><strong>86</strong><small>NGO partners</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>🍲 FoodBridge</strong><p>Technology for a food-resilient community.</p></div>
+    <div><span>© 2026 FoodBridge</span><span> • </span><span>GitHub-ready demo project</span></div>
+  </footer>
+
+  <div id="loginModal" class="modal" onclick="closeModal(event,'loginModal')">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal(null,'loginModal')">×</button>
+      <h2>Welcome back</h2><p>Demo login for the frontend project.</p>
+      <label>Email<input type="email" placeholder="demo@example.com"></label>
+      <label>Password<input type="password" placeholder="••••••••"></label>
+      <button class="btn full" onclick="demoLogin()">Login</button>
+      <p id="loginMsg" class="form-message"></p>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
